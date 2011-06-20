@@ -1,0 +1,5 @@
+.spade
+.bundle
+_site
+tmp
+.DS_Store
