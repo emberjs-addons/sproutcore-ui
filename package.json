@@ -4,18 +4,14 @@
   "description": "The SproutCore UI Layer",
   "homepage": "http://sproutcore.com",
   "author": "Majd Taby",
-  "version": "1.0",
+  "version": "2.0",
 
   "dependencies": {
-    "jquery": "1.6",
-    "sproutcore-views": "2.0",
+    "qunit": "1.0",
+    "sproutcore": "2.0"
   },
-  "plugin:preprocessors": [
-    "sproutcore-preprocessor/preprocessor"
-  ],
   "directories": {
     "lib"       : "./lib",
     "tests"     : "./tests"
   }
 }
-

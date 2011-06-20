@@ -1,0 +1,43 @@
+GIT
+  remote: git://github.com/wycats/abbot-from-scratch.git
+  revision: ddbb8c6f81a686b6fa7f754623bad96fbd38bfa6
+  specs:
+    sproutcore (0.0.1)
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    childlabor (0.0.3)
+    eventmachine (0.12.10)
+    gemcutter (0.6.1)
+    highline (1.6.2)
+    json_pure (1.4.6)
+    libgems (0.0.4)
+    rack (1.2.3)
+    spade (0.1.0)
+      spade-packager (~> 0.1.0)
+      spade-runtime (~> 0.1.0)
+    spade-core (0.1.0)
+    spade-packager (0.1.0)
+      gemcutter (~> 0.6.1)
+      highline (~> 1.6.1)
+      json_pure (~> 1.4.6)
+      libgems (~> 0.0.2)
+      thor (~> 0.14.3)
+    spade-runtime (0.1.0.1)
+      childlabor (~> 0.0.3)
+      eventmachine (~> 0.12.10)
+      json_pure (~> 1.4.6)
+      rack (~> 1.2.1)
+      spade-core (~> 0.1.0)
+      therubyracer (~> 0.8.0)
+      thor (~> 0.14.3)
+    therubyracer (0.8.2)
+    thor (0.14.6)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  spade
+  sproutcore!
