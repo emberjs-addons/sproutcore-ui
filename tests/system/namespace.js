@@ -5,7 +5,7 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
-module("UI");
+module("Namespace");
 
 test("UI namespace should be defined", function() {
   ok(UI);
