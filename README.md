@@ -4,11 +4,7 @@ SproutCore UI is the next generation User Interface layer built specifically for
 
 # How to Run Unit Tests
 
-1. Change your user account name to 'majd'.
-
-2. Move all your SC2 related repos to ~/github.
-
-3. Profit!
+Coming soon...
 
 # Building SproutCore UI
 
