@@ -74,5 +74,5 @@ test("#navigation_view should be a valid selector in DOM", function() {
 });
 
 test("It should create a #navigation-item for each item", function() {
-  equals($('.ui-navigation-item').length,navigation_tree.length);
+  equals($('.ui-navigation-item').length,NavigationAcceptanceTest.navigationController.tree.length);
 });
