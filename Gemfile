@@ -2,6 +2,7 @@
 source "http://rubygems.org"
 
 gem "spade"
+gem "uglifier"
 
 if abbot_path = ENV["ABBOT_PATH"]
   gem "sproutcore", :path => abbot_path
