@@ -1,16 +1,9 @@
 require "bundler/setup"
 require "sproutcore"
 require "erb"
+require "uglifier"
 
 LICENSE = File.read("generators/license.js")
-
-def uglify(string)
-  IO.popen("uglifyjs -nc", "r+") do |io|
-    io.puts string
-    io.close_write
-    return io.read
-  end
-end
 
 SproutCore::Compiler.intermediate = "tmp/intermediate"
 SproutCore::Compiler.output       = "tmp/static"
@@ -48,7 +41,7 @@ end
 
 file "tmp/sproutcore-ui.min.js" => "tmp/sproutcore-ui.js" do
   File.open("tmp/sproutcore-ui.min.js", "w") do |file|
-    uglified = uglify(File.read("tmp/sproutcore-ui.js"))
+    uglified = Uglifier.compile(File.read("tmp/sproutcore-ui.js"))
     file.puts "#{LICENSE}\n#{uglified}"
   end
 end
