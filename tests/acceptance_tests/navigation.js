@@ -11,10 +11,15 @@ var get = SC.get;
 
 NavigationAcceptanceTest = {};
 var containerView;
+var content = [{title:"One"},{title:"Two"},{title:"Three"}];
 
 module("Navigation Acceptance test", {
   setup: function() {
     console.group('Navigation Acceptance Test');
+
+    NavigationAcceptanceTest.collectionController = SC.CollectionView.extend({
+      content: content
+    }); 
 
     NavigationAcceptanceTest.navigationController = UI.NavigationController.create({
       tree: [
@@ -53,7 +58,11 @@ module("Navigation Acceptance test", {
 
     containerView = SC.View.create({
       elementId: 'container-view',
-      template: SC.Handlebars.compile('{{ui NavigationView elementId="navigation_view" controller="NavigationAcceptanceTest.navigationController"}}')
+      template: SC.Handlebars.compile('{{#ui NavigationView elementId="navigation_view" controller="NavigationAcceptanceTest.navigationController"}}\
+                                         {{#collection NavigationAcceptanceTest.collectionController itemClass="navigation-item"}}\
+                                           <b>{{content.title}}</b>\
+                                         {{/collection}}\
+                                       {{/ui}}')
     });
 
 
@@ -69,10 +78,7 @@ module("Navigation Acceptance test", {
   }  
 });
 
-test("#navigation_view should be a valid selector in DOM", function() {
-  equals($('#navigation_view').length,1);
-});
-
-test("It should create a #navigation-item for each item", function() {
-  equals($('.ui-navigation-item').length,NavigationAcceptanceTest.navigationController.tree.length);
+test("Using a collection as the root view in a navigation view", function() {
+  equals($('#navigation_view').length,1,"#navigation_view should be a valid selector in DOM");
+  equals($('.navigation-item').length,content.length,"There should be one item per content object");
 });
