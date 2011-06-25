@@ -14,16 +14,16 @@ var content = [{title:"One"},{title:"Two"},{title:"Three"}];
 
 module("Navigation Acceptance test", {
   setup: function() {
-    console.group('Navigation Acceptance Test');
+    console.group('Navigation Acceptance Test - Setup for new test');
 
     application = SC.Application.create();
     application.ready();
 
+    application.navigationController = UI.NavigationController.create();
+
     application.collectionController = SC.CollectionView.extend({
       content: content
     }); 
-
-    application.navigationController = UI.NavigationController.create();
 
     containerView = SC.View.create({
       elementId: 'container-view',
@@ -41,8 +41,8 @@ module("Navigation Acceptance test", {
   },
 
   teardown: function() {
-    //containerView.destroy();
-    //application.destroy();
+    containerView.destroy();
+    application.destroy();
 
     console.groupEnd();
   }  
@@ -50,11 +50,30 @@ module("Navigation Acceptance test", {
 
 test("Using a collection as the root view in a navigation view", function() {
   equals($('#navigation_view').length,1,"#navigation_view should be a valid selector in DOM");
-  equals($('.navigation-item').length,content.length,"There should be one item per content object");
+  equals($('#navigation_view .navigation-item').length,content.length,"There should be one item per content object");
+  equals($('#navigation_view .navigation-item').first().text().trim(),content[0].title,"The DOM must contain the proper value from content array");
 });
 
 test("Pushing views", function() {
-  item = $('.navigation-item:first');
+  var secondContent = ["Four","Five","Six"];
 
-  item.trigger('click');
+  var view = SC.CollectionView.extend({
+    classNames: ['__test_second'],
+    content: secondContent,
+
+    itemViewClass: SC.View.extend({
+      classNames: ['navigation-item'],
+      render: function(buf) {
+        buf.push(get(this, 'content'));
+      }
+    })
+  });
+
+  SC.run(function() {
+    application.navigationController.pushView(view);
+  });
+
+  equals($('.__test_second').length,1,".__test_second should be a valid selector in DOM");
+  equals($('.__test_second .navigation-item').length,content.length,"There should be one item per content object");
+  equals($('.__test_second .navigation-item').first().text(),secondContent[0],"The DOM must contain the proper value from content array");
 });
