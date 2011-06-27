@@ -4,13 +4,18 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
-
-
 var set = SC.set;
 var get = SC.get;
 
 var containerView;
 var content = [{title:"One"},{title:"Two"},{title:"Three"}];
+
+var itemViewClass = SC.View.extend({
+  classNames: ['navigation-item'],
+  render: function(buf) {
+    buf.push(get(this, 'content'));
+  }
+});
 
 module("Navigation Acceptance test", {
   setup: function() {
@@ -41,6 +46,7 @@ module("Navigation Acceptance test", {
   },
 
   teardown: function() {
+    application.navigationController.destroy();
     containerView.destroy();
     application.destroy();
 
@@ -60,13 +66,7 @@ test("Pushing views", function() {
   var view = SC.CollectionView.extend({
     classNames: ['__test_second'],
     content: secondContent,
-
-    itemViewClass: SC.View.extend({
-      classNames: ['navigation-item'],
-      render: function(buf) {
-        buf.push(get(this, 'content'));
-      }
-    })
+    itemViewClass: itemViewClass
   });
 
   SC.run(function() {
@@ -76,4 +76,31 @@ test("Pushing views", function() {
   equals($('.__test_second').length,1,".__test_second should be a valid selector in DOM");
   equals($('.__test_second .navigation-item').length,content.length,"There should be one item per content object");
   equals($('.__test_second .navigation-item').first().text(),secondContent[0],"The DOM must contain the proper value from content array");
+  equals(application.navigationController.get('views').length,2,"There should be two items in the stack");
+});
+
+test("Popping a view", function() {
+
+  var secondContent = ["Four","Five","Six"];
+
+  var pushedView = SC.CollectionView.extend({
+    classNames: ['__test_second'],
+    content: secondContent,
+    itemViewClass: itemViewClass
+  });
+
+  var poppedView;
+
+  SC.run(function() {
+    application.navigationController.pushView(pushedView);
+  });
+
+  equals(application.navigationController.get('views').length,2,"There should be two items in the stack");
+
+  SC.run(function() {
+    poppedView = application.navigationController.popView();
+  });
+  
+  equals(poppedView,pushedView,"the return value from pop() should be the most recently pushed view");
+  equals(application.navigationController.get('views').length,1,"There should be one item in the stack (the root one created in the setup()");
 });
