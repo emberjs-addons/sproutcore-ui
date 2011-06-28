@@ -81,9 +81,10 @@ test("Pushing views", function() {
 
 test("Popping a view", function() {
 
-  var secondContent = ["Four","Five","Six"];
+  var secondContent = ["Seven","Eight","Nine"];
 
   var pushedView = SC.CollectionView.extend({
+    __my_acceptance_test: true,
     classNames: ['__test_second'],
     content: secondContent,
     itemViewClass: itemViewClass
@@ -101,6 +102,6 @@ test("Popping a view", function() {
     poppedView = application.navigationController.popView();
   });
   
-  equals(poppedView,pushedView,"the return value from pop() should be the most recently pushed view");
+  ok(poppedView.__my_acceptance_test,"the return value from pop() should be the most recently pushed view");
   equals(application.navigationController.get('views').length,1,"There should be one item in the stack (the root one created in the setup()");
 });
