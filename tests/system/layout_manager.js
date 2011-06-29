@@ -94,6 +94,26 @@ test("right anchoring", function() {
   validateLayout($('.layout_manager_test'), { bottom: 0, top: 0, right: 0, width: viewHeight });
 });
 
+test("top with no constraint", function() {
+  generateView('layout_manager_test', 'top');
+  validateLayout($('.layout_manager_test'), { bottom: 0, top: 0, right: 0, left: 0 });
+});
+
+test("right with no constraint", function() {
+  generateView('layout_manager_test', 'right');
+  validateLayout($('.layout_manager_test'), { bottom: 0, top: 0, right: 0, left: 0 });
+});
+
+test("left with no constraint", function() {
+  generateView('layout_manager_test', 'left');
+  validateLayout($('.layout_manager_test'), { bottom: 0, top: 0, right: 0, left: 0 });
+});
+
+test("bottom with no constraint", function() {
+  generateView('layout_manager_test', 'bottom');
+  validateLayout($('.layout_manager_test'), { bottom: 0, top: 0, right: 0, left: 0 });
+});
+
 test("Testing a full layout", function() {
 
   var viewHeight = 43;
