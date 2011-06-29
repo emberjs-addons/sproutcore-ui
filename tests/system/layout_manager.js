@@ -60,6 +60,12 @@ module("Layout Manager",{
   }  
 });
 
+test("by default fill up page", function() {
+
+  generateView('layout_manager_test', 'fill');
+  validateLayout($('.layout_manager_test'), { top: 0, left: 0, right: 0, bottom: 0 });
+});
+
 test("top anchoring", function() {
 
   var viewHeight = 43;
@@ -93,24 +99,45 @@ test("Testing a full layout", function() {
   var viewHeight = 43;
   var sideBarWidth = 250;
 
-  generateView('layout_manager_test2', 'top', 'height', viewHeight);
-  generateView('layout_manager_test3', 'bottom', 'height', viewHeight);
-  generateView('layout_manager_test4', 'left', 'width', sideBarWidth);
-  generateView('layout_manager_test5', 'right', 'width', sideBarWidth);
-  generateView('layout_manager_test6', 'left');
+  generateView('layout_manager_test', 'top', 'height', viewHeight);
+  generateView('layout_manager_test2', 'bottom', 'height', viewHeight);
+  generateView('layout_manager_test3', 'left', 'width', sideBarWidth);
+  generateView('layout_manager_test4', 'right', 'width', sideBarWidth);
+  generateView('layout_manager_test5', 'fill');
 
-  validateLayout($('.layout_manager_test2'), { top: 0, left: 0, right: 0, height: viewHeight });
-  validateLayout($('.layout_manager_test3'), { bottom: 0, left: 0, right: 0, height: viewHeight });
-  validateLayout($('.layout_manager_test4'), { top: viewHeight, left: 0, bottom: viewHeight, width: sideBarWidth });
-  validateLayout($('.layout_manager_test5'), { top: viewHeight, right: 0, bottom: viewHeight, width: sideBarWidth });
-  validateLayout($('.layout_manager_test6'), { top: viewHeight, right: sideBarWidth, bottom: viewHeight, left: sideBarWidth });
+  validateLayout($('.layout_manager_test'), { top: 0, left: 0, right: 0, height: viewHeight });
+  validateLayout($('.layout_manager_test2'), { bottom: 0, left: 0, right: 0, height: viewHeight });
+  validateLayout($('.layout_manager_test3'), { top: viewHeight, left: 0, bottom: viewHeight, width: sideBarWidth });
+  validateLayout($('.layout_manager_test4'), { top: viewHeight, right: 0, bottom: viewHeight, width: sideBarWidth });
+  validateLayout($('.layout_manager_test5'), { top: viewHeight, right: sideBarWidth, bottom: viewHeight, left: sideBarWidth });
+});
 
-  // Un comment these lines to see the layout (also uncomment the call to super in 
-  // UI.LayoutSupport#destroy
-  
-  //$('.layout_manager_test2').css('background-color','red');
-  //$('.layout_manager_test3').css('background-color','blue');
-  //$('.layout_manager_test4').css('background-color','green');
-  //$('.layout_manager_test5').css('background-color','yellow');
-  //$('.layout_manager_test6').css('background-color','magenta');
+test('Nesting a view inside another one', function() {
+  var sideBarWidth = 250;
+  var viewHeight = 43;
+
+  var parentView = generateView('layout_manager_test', 'left', 'width', sideBarWidth);
+
+  var nestedView = parentView.createChildView(SC.View.extend(UI.LayoutSupport), {
+    anchor: 'top',
+    height: viewHeight,
+    classNames: ['nested_test_nested_view']
+  });
+
+  var buffer = nestedView.renderToBuffer().string();
+  console.log(buffer);
+
+  var fragment = SC.$(buffer);
+  parentView.$().append(fragment);
+
+  var childViews = get(parentView, 'childViews');
+  childViews.push(nestedView);
+
+  validateLayout($('.layout_manager_test'), { top: 0, left: 0, bottom: 0, width: sideBarWidth });
+  validateLayout($('.nested_test_nested_view'), { top: 0, left: 0, right: 0, height: viewHeight });
+
+  $('.layout_manager_test').css('background-color','blue');
+  $('.nested_test_nested_view').css('background-color','red');
+
+  equals($('.layout_manager_test .nested_test_nested_view').length,1,"The parent view should have one child");
 });
