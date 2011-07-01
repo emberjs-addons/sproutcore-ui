@@ -10,12 +10,12 @@ var viewClass;
 var views = [];
 var containerView;
 
-function validateLayout(element,layout) {
+function validateLayout(element,layout,desc) {
   equals(element.length, 1, "View should be in dom");
   equals(element.css('position'),'absolute');
 
   for (var property in layout) {
-    equals(element.css(property),layout[property]+'px','Testing '+property+' of '+element);
+    equals(element.css(property),layout[property]+'px','Testing '+property+' of '+element+' - '+desc);
   }
 }
 
@@ -87,40 +87,96 @@ module("Layout Manager",{
   }  
 });
 
+test("no anchors", function() {
+  var viewHeight = 50;
+
+  var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'), {top:0,left:0,right:0,bottom:0},'vertical, container');
+
+  generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'), {top:0,left:0,right:0,bottom:0},'vertical, content');
+});
+
+test("vertical anchoring only top anchor", function() {
+  var viewHeight = 50;
+
+  var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'), {top:0,left:0,right:0,bottom:0},'vertical, container');
+
+  generateNestedView(parentView,'top_anchor','top',viewHeight);
+  validateLayout($('.top_anchor'), {top:0,left:0,right:0,height:viewHeight},'vertical, top');
+
+  generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'), {top:viewHeight,left:0,right:0,bottom:0},'vertical, content');
+});
+
+test("vertical anchoring only bottom anchor", function() {
+  var viewHeight = 50;
+
+  var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'), {top:0,left:0,right:0,bottom:0},'vertical, container');
+
+  generateNestedView(parentView,'bottom_anchor','bottom',viewHeight);
+  validateLayout($('.bottom_anchor'), {bottom:0,left:0,right:0,height:viewHeight},'vertical, bottom');
+
+  generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'), {top:0,left:0,right:0,bottom:viewHeight},'vertical, content');
+});
+
 test("vertical anchoring with content view", function() {
   var viewHeight = 50;
 
   var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'), {top:0,left:0,right:0,bottom:0},'vertical, container');
+
   generateNestedView(parentView,'top_anchor','top',viewHeight);
+  validateLayout($('.top_anchor'), {top:0,left:0,right:0,height:viewHeight},'vertical, top');
+
   generateNestedView(parentView,'bottom_anchor','bottom',viewHeight);
+  validateLayout($('.bottom_anchor'), {bottom:0,left:0,right:0,height:viewHeight},'vertical, bottom');
+
   generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'), {top:viewHeight,left:0,right:0,bottom:viewHeight},'vertical, content');
+});
 
-  validateLayout($('.layout_manager_test'), {top:0,left:0,right:0,bottom:0});
-  validateLayout($('.top_anchor'), {top:0,left:0,right:0,height:viewHeight});
-  validateLayout($('.bottom_anchor'), {bottom:0,left:0,right:0,height:viewHeight});
-  validateLayout($('.content_view'), {top:viewHeight,left:0,right:0,bottom:viewHeight});
+test("horizontal anchoring only left anchor", function() {
+  var sidebarWidth = 250;
 
-  //validateLayout($('.layout_manager_test').css('background','red'), {top:0,left:0,right:0,bottom:0});
-  //validateLayout($('.top_anchor').css('background','blue'), {top:0,left:0,right:0,height:viewHeight});
-  //validateLayout($('.bottom_anchor').css('background','yellow'), {bottom:0,left:0,right:0,height:viewHeight});
-  //validateLayout($('.content_view').css('background','green'), {top:viewHeight,left:0,right:0,bottom:viewHeight});
+  var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'),                       { top:0,left:0,right:0,bottom:0},'horizontal, container');
+
+  generateNestedView(parentView,'left_anchor','left',sidebarWidth);
+  validateLayout($('.left_anchor'),                                { top:0,left:0,bottom:0,width:sidebarWidth},'horizontal, left');
+  
+  generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'),                              { top:0,left:sidebarWidth,right:0,bottom:0},'horizontal, content');
+});
+
+test("horizontal anchoring only right anchor", function() {
+  var sidebarWidth = 250;
+
+  var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'),                       { top:0,left:0,right:0,bottom:0},'horizontal, container');
+
+  generateNestedView(parentView,'right_anchor','right',sidebarWidth);
+  validateLayout($('.right_anchor'),                             { top:0,right:0,bottom:0,width:sidebarWidth},'horizontal, right');
+  
+  generateNestedView(parentView,'content_view','contentView');
+  validateLayout($('.content_view'),                              { top:0,left:0,right:sidebarWidth,bottom:0},'horizontal, content');
 });
 
 test("horizontal anchoring with content view", function() {
   var sidebarWidth = 250;
 
   var parentView = generateNestedView(containerView,'layout_manager_test','contentView');
+  validateLayout($('.layout_manager_test'),                       { top:0,left:0,right:0,bottom:0},'horizontal, container');
+
   generateNestedView(parentView,'left_anchor','left',sidebarWidth);
+  validateLayout($('.left_anchor'),                                { top:0,left:0,bottom:0,width:sidebarWidth},'horizontal, left');
+
   generateNestedView(parentView,'right_anchor','right',sidebarWidth);
+  validateLayout($('.right_anchor'),                             { top:0,right:0,bottom:0,width:sidebarWidth},'horizontal, right');
+  
   generateNestedView(parentView,'content_view','contentView');
-
-  //validateLayout($('.layout_manager_test'),                           { top:0,left:0,right:0,bottom:0});
-  //validateLayout($('.left_anchor'),                                   { top:0,left:0,bottom:0,width:sidebarWidth});
-  //validateLayout($('.right_anchor'),                                  { top:0,right:0,bottom:0,width:sidebarWidth});
-  //validateLayout($('.content_view'),                                  { top:0,left:sidebarWidth,right:sidebarWidth,bottom:0});
-
-  validateLayout($('.layout_manager_test').css('background','red'), { top:0,left:0,right:0,bottom:0});
-  validateLayout($('.top_anchor').css('background','blue'),         { top:0,left:0,bottom:0,width:sidebarWidth});
-  validateLayout($('.bottom_anchor').css('background','yellow'),    { top:0,right:0,bottom:0,width:sidebarWidth});
-  validateLayout($('.content_view').css('background','green'),      { top:0,left:sidebarWidth,right:sidebarWidth,bottom:0});
+  validateLayout($('.content_view'),                              { top:0,left:sidebarWidth,right:sidebarWidth,bottom:0},'horizontal, content');
 });
