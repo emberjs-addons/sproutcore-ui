@@ -10,8 +10,9 @@ var get = SC.get;
 var containerView;
 var content = [{title:"One"},{title:"Two"},{title:"Three"}];
 
-var itemViewClass = SC.View.extend({
+var itemViewClass = SC.View.extend(UI.LayoutSupport, {
   classNames: ['navigation-item'],
+  anchorTo: 'remainingSpace',
   render: function(buf) {
     buf.push(get(this, 'content'));
   }
@@ -26,14 +27,17 @@ module("Navigation Acceptance test", {
 
     application.navigationController = UI.NavigationController.create();
 
-    application.collectionController = SC.CollectionView.extend({
+    application.collectionView = SC.CollectionView.extend(UI.LayoutSupport, {
+      anchorTo: 'remainingSpace',
       content: content
     }); 
 
-    containerView = SC.View.create({
+    containerView = SC.View.create(UI.LayoutSupport, {
       elementId: 'container-view',
+      anchorTo: 'left',
+      size: 250,
       template: SC.Handlebars.compile('{{#ui NavigationView elementId="navigation_view" controller="application.navigationController"}}\
-                                         {{#collection application.collectionController itemClass="navigation-item"}}\
+                                         {{#collection application.collectionView itemClass="navigation-item"}}\
                                            <b>{{content.title}}</b>\
                                          {{/collection}}\
                                        {{/ui}}')
@@ -46,9 +50,9 @@ module("Navigation Acceptance test", {
   },
 
   teardown: function() {
-    application.navigationController.destroy();
-    containerView.destroy();
-    application.destroy();
+    //application.navigationController.destroy();
+    //containerView.destroy();
+    //application.destroy();
 
     console.groupEnd();
   }  
@@ -63,8 +67,9 @@ test("Using a collection as the root view in a navigation view", function() {
 test("Pushing views", function() {
   var secondContent = ["Four","Five","Six"];
 
-  var view = SC.CollectionView.extend({
+  var view = SC.CollectionView.extend(UI.LayoutSupport, {
     classNames: ['__test_second'],
+    anchorTo: 'remainingSpace',
     content: secondContent,
     itemViewClass: itemViewClass
   });
@@ -83,8 +88,9 @@ test("Popping a view", function() {
 
   var secondContent = ["Seven","Eight","Nine"];
 
-  var pushedView = SC.CollectionView.extend({
+  var pushedView = SC.CollectionView.extend(UI.LayoutSupport, {
     __my_acceptance_test: true,
+    anchorTo: 'remainingSpace',
     classNames: ['__test_second'],
     content: secondContent,
     itemViewClass: itemViewClass
