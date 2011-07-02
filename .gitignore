@@ -4,3 +4,4 @@ _site
 tmp
 .DS_Store
 spade-boot.js
+Gemfile.lock
