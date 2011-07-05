@@ -50,9 +50,9 @@ module("Navigation Acceptance test", {
   },
 
   teardown: function() {
-    //application.navigationController.destroy();
-    //containerView.destroy();
-    //application.destroy();
+    application.navigationController.destroy();
+    containerView.destroy();
+    application.destroy();
 
     console.groupEnd();
   }  
