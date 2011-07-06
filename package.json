@@ -7,8 +7,9 @@
   "version": "2.0",
 
   "dependencies": {
-    "qunit": "1.0",
-    "sproutcore": "2.0"
+    "spade": "~> 0.1.2.1",
+    "shifty": "~> 0.2",
+    "sproutcore": "2.0.beta.1"
   },
   "directories": {
     "lib"       : "./lib",
