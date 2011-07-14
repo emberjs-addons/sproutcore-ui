@@ -1,0 +1,3 @@
+[submodule "packages/sproutcore20"]
+	path = packages/sproutcore20
+	url = git://github.com/sproutcore/sproutcore20.git

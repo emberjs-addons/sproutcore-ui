@@ -4,7 +4,17 @@ SproutCore UI is the next generation User Interface layer built specifically for
 
 # How to Run Unit Tests
 
-Coming soon...
+1. gem install bundler
+
+2. bundle
+
+3. gem install bpm
+
+4. bpm init
+
+5. bpm add spade
+
+6. spaderun preview
 
 # Building SproutCore UI
 
