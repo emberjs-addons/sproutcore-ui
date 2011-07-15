@@ -8,10 +8,19 @@ Coming soon...
 
 # Building SproutCore UI
 
-1. Follow the installation instructions for running the unit tests.
+1. Install Bundler via `gem install bundler`
 
-2. Install Bundler via `gem install bundler`
+2. Run `bundle install` to pull in Ruby dependencies.
 
-3. Run `bundle install` to pull in Ruby dependencies.
+3. Symlink the lib and test directories and package.json file into
+   the packages/sproutcore-ui directory:
 
-4. Run `bundle exec rake` to build SproutCore. The build will be placed in the tmp directory.
+   ```mkdir packages/sproutcore-ui;
+   cd packages/sproutcore-ui;
+   ln -s ../../lib .;
+   ln -s ../../tests .;
+   ln -s ../../package.json .
+   ```
+
+4. Run `bundle exec rake` to build SproutCore UI. The build will be placed in the dist directory.
+
