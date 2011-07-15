@@ -15,9 +15,12 @@ Coming soon...
 3. Symlink the lib and test directories and package.json file into
    the packages/sproutcore-ui directory:
 
-    mkdir packages/sproutcore-ui
-    ln -s lib packages/sproutcore-ui/
-    ln -s tests packages/sproutcore-ui/
-    ln -s package.json packages/sproutcore-ui/
+   ```mkdir packages/sproutcore-ui
+   cd packages/sproutcore-ui
+   ln -s ../../lib .
+   ln -s ../../tests .
+   ln -s ../../package.json .
+   ```
 
 4. Run `bundle exec rake` to build SproutCore UI. The build will be placed in the dist directory.
+
