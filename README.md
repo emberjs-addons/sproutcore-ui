@@ -15,14 +15,10 @@ Coming soon...
 3. Symlink the lib and test directories and package.json file into
    the packages/sproutcore-ui directory:
 
-   ```mkdir packages/sproutcore-ui
-
-   cd packages/sproutcore-ui
-
-   ln -s ../../lib .
-
-   ln -s ../../tests .
-
+   ```mkdir packages/sproutcore-ui;
+   cd packages/sproutcore-ui;
+   ln -s ../../lib .;
+   ln -s ../../tests .;
    ln -s ../../package.json .
    ```
 
