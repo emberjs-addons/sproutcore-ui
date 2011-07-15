@@ -22,15 +22,5 @@ SproutCore UI is the next generation User Interface layer built specifically for
 
 2. Run `bundle install` to pull in Ruby dependencies.
 
-3. Symlink the lib and test directories and package.json file into
-   the packages/sproutcore-ui directory:
-
-   ```mkdir packages/sproutcore-ui;
-   cd packages/sproutcore-ui;
-   ln -s ../../lib .;
-   ln -s ../../tests .;
-   ln -s ../../package.json .
-   ```
-
-4. Run `bundle exec rake` to build SproutCore UI. The build will be placed in the dist directory.
+3. Run `bundle exec rake` to build SproutCore UI. The build will be placed in the dist directory.
 
