@@ -4,17 +4,15 @@ SproutCore UI is the next generation User Interface layer built specifically for
 
 # How to Run Unit Tests
 
-1. gem install bundler
+1. Install Bundler via `gem install bundler`
 
-2. bundle
+2. Run `bundle install` to pull in Ruby dependencies.
 
-3. gem install bpm
+3. `gem install spade -v 0.1.1.1`
 
-4. bpm init
+4. To run the development server: `spade update && spade preview`
 
-5. bpm add spade
-
-6. spaderun preview
+5. Visit http://localhost:4020/tests.html?package=sproutcore-ui in your browser of choice.
 
 # Building SproutCore UI
 
