@@ -1,5 +1,5 @@
 {
-  "name": "sproutcore-ui-bootstrap",
+  "name": "sproutcore-ui",
   "summary": "SproutCore UI",
   "description": "The SproutCore UI Layer",
   "homepage": "http://sproutcore.com",
@@ -7,9 +7,12 @@
   "version": "2.0",
 
   "dependencies": {
-    "qunit": "1.0",
     "spade": "~> 0.1.2.1",
-    "sproutcore": "2.0",
-    "sproutcore-ui": "2.0"
+    "shifty": "~> 0.2",
+    "sproutcore": "2.0.beta.1"
+  },
+  "directories": {
+    "lib"       : "./lib",
+    "tests"     : "./tests"
   }
 }
