@@ -4,6 +4,8 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
+require('sproutcore-ui')
+
 var set = SC.set;
 var get = SC.get;
 

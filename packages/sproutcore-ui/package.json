@@ -15,6 +15,13 @@
     "qunit": "~> 1.0.0"
   },
   
+  "bpm:build": {
+    "sproutcore-ui/bpm_tests.js": {
+      "directories": ["tests"],
+      "modes": ["debug"]
+    }
+  },
+  
   "directories": {
     "lib"       : "lib",
     "tests"     : "tests"

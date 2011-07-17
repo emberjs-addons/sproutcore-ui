@@ -4,7 +4,6 @@
 // License:   Licensed under MIT license (see license.js)
 // ==========================================================================
 
-require('shifty');
 require('sproutcore-ui/controllers/view_controller');
 require('sproutcore-ui/controllers/navigation_controller');
 
