@@ -7,12 +7,16 @@
   "version": "2.0",
 
   "dependencies": {
-    "spade": "~> 0.1.2.1",
-    "shifty": "~> 0.2",
-    "sproutcore": "2.0.beta.1"
+    "spade": "~> 1.0.0",
+    "sproutcore": "2.0.beta.2.pre"
   },
+  
+  "dependencies:development": {
+    "qunit": "~> 1.0.0"
+  },
+  
   "directories": {
-    "lib"       : "./lib",
-    "tests"     : "./tests"
+    "lib"       : "lib",
+    "tests"     : "tests"
   }
 }

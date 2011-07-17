@@ -1,0 +1,23 @@
+{
+  "name": "sproutcore-ui-bootstrap",
+  "bpm":  "1.0",
+  "description": "The SproutCore UI Layer",
+  "author": "Majd Taby",
+  "homepage": "http://sproutcore.com",
+  "summary": "SproutCore UI",
+  "dependencies": {
+    "sproutcore-ui": "~> 2.0"
+  },
+  
+  "bpm:build": {
+    "bpm_libs.js": {
+      "exclude": ["sproutcore-ui"],
+      "minifier": "uglify-js"
+    },
+    
+    "sproutcore-ui.js": {
+      "include": ["sproutcore-ui"],
+      "minifier": "uglify-js"
+    }
+  }
+}

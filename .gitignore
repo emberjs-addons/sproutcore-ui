@@ -6,3 +6,5 @@ tmp
 spade-boot.js
 Gemfile.lock
 dist
+.bpm
+assets/
