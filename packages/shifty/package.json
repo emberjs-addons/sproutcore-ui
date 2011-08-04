@@ -2,9 +2,9 @@
   "name": "shifty",
   "summary": "shifty",
   "description": "shifty",
-  "homepage": "",
-  "author": "",
-  "version": "0.2",
+  "homepage": "https://github.com/jeremyckahn/shifty/blob/master/README.md",
+  "author": "Jeremy Kahn",
+  "version": "0.4.1",
 
   "dependencies": {
   }
