@@ -1,7 +1,7 @@
-# A sample Gemfile
 source "http://rubygems.org"
 
-gem "rake"
+gem "sproutcore", :git => "https://github.com/wycats/abbot-from-scratch.git"
 gem "uglifier"
-
-gem "sproutcore", :git => "git://github.com/wycats/abbot-from-scratch.git"
+gem "execjs"
+gem "multi_json"
+gem "rake"
