@@ -26,6 +26,12 @@ def strip_require(file)
   result
 end
 
+def strip_sc_assert(file)
+  result = File.read(file)
+  result.gsub!(%r{^(\s)+sc_assert\((.*)\).*$}, "")
+  result
+end
+
 def uglify(file)
   uglified = Uglifier.compile(File.read(file))
   "#{LICENSE}\n#{uglified}"
@@ -40,7 +46,7 @@ def compile_package_task(package)
 end
 
 namespace :sproutcore do
-    task :ui => compile_package_task("sproutcore-ui")
+  task :ui => compile_package_task("sproutcore-ui")
 end
 
 task :build => ["sproutcore:ui"]
@@ -58,14 +64,25 @@ end
 # Minify dist/sproutcore-ui.js to dist/sproutcore-ui.min.js
 file "dist/sproutcore-ui.min.js" => "dist/sproutcore-ui.js" do
   puts "Generating sproutcore-ui.min.js"
+  
+  File.open("dist/sproutcore-ui.prod.js", "w") do |file|
+    file.puts strip_sc_assert("dist/sproutcore-ui.js")
+  end
 
   File.open("dist/sproutcore-ui.min.js", "w") do |file|
-    file.puts uglify("dist/sproutcore-ui.js")
+    file.puts uglify("dist/sproutcore-ui.prod.js")
   end
+  rm "dist/sproutcore-ui.prod.js"
 end
 
+desc "Build SproutCore UI"
+task :dist => ["dist/sproutcore-ui.min.js"]
+
+desc "Clean artifacts from previous builds"
+task :clean do
+  sh "rm -rf tmp && rm -rf dist"
+end
 
 SC_VERSION = "2.0"
 
-task :default => ["dist/sproutcore-ui.min.js"]
-
+task :default => :dist
