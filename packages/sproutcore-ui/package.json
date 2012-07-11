@@ -8,7 +8,7 @@
 
   "dependencies": {
     "spade": "~> 1.0.0",
-    "sproutcore": "2.0.beta.2.pre"
+    "sproutcore": "2.0.beta.2"
   },
   
   "dependencies:development": {

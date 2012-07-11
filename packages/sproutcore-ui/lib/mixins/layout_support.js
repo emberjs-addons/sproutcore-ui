@@ -37,24 +37,24 @@ var get = SC.get;
   with a third view filling out the remaining space for content. In that case,
   your handlebars template will look like this:
 
-    {{#view MyApp.containerView}}
-      {{#view MyApp.topToolbarView anchorTo="top" size="50"}}
+    {{#view MyApp.ContainerView}}
+      {{#view MyApp.TopToolbarView anchorTo="top" size="50"}}
 
       {{/view}}
-      {{#view MyApp.contentAreaView anchorTo="remainingSpace"}}
+      {{#view MyApp.ContentAreaView anchorTo="remainingSpace"}}
 
       {{/view}}
-      {{#view MyApp.bottomToolbarView anchorTo="bottom" size="50"}}
+      {{#view MyApp.BottomToolbarView anchorTo="bottom" size="50"}}
 
       {{/view}}
     {{/view}}
 
   And your application's javascript file will be look like so: 
 
-    MyApp.containerView = SC.View.create(UI.LayoutSupport,{...});
-    MyApp.topToolbarView = SC.View.create(UI.LayoutSupport,{...});
-    MyApp.contentAreaView = SC.View.create(UI.LayoutSupport,{...});
-    MyApp.bottomToolbarView = SC.View.create(UI.LayoutSupport,{...});
+    MyApp.ContainerView = SC.View.extend(UI.LayoutSupport,{...});
+    MyApp.TopToolbarView = SC.View.extend(UI.LayoutSupport,{...});
+    MyApp.ContentAreaView = SC.View.extend(UI.LayoutSupport,{...});
+    MyApp.BottomToolbarView = SC.View.extend(UI.LayoutSupport,{...});
 
   Notes: 
   --------
